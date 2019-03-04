@@ -7,37 +7,49 @@ next: conditional-rendering.html
 redirect_from:
   - "docs/events-ko-KR.html"
 ---
+<div dir=rtl>
+بکارگیری  event ها با  استفاده از المان‌های ری‌اکت بسیار مشابه با به کارگیری event ها در المان‌های DOM می‌باشد. با این تفاوت که کمی از نظر نوع نوشتن متفاوت هستند:
+</div>
 
-Handling events with React elements is very similar to handling events on DOM elements. There are some syntactic differences:
+<ul dir=rtl>
+	<li>
+			در ری‌اکت event ها به صورت camelCase نوشته می‌شوند، به جای اینکه lowercase نوشته شوند.
+	</li>
+	<li>
+با JSX شما یک تابع را به عنوان event handler انتقال می‌دهید به جای اینکه یک  string  را انتقال دهید.
+	</li>
+</ul>
 
-* React events are named using camelCase, rather than lowercase.
-* With JSX you pass a function as the event handler, rather than a string.
-
-For example, the HTML:
+<div dir=rtl>
+برای مثال در HTML:
+</div>
 
 ```html
 <button onclick="activateLasers()">
   Activate Lasers
 </button>
 ```
-
-is slightly different in React:
+<div dir=rtl>
+کمی تفاوت نسبت به ری‌اکت می‌بینیم:
+</div>
 
 ```js{1}
 <button onClick={activateLasers}>
   Activate Lasers
 </button>
 ```
-
-Another difference is that you cannot return `false` to prevent default behavior in React. You must call `preventDefault` explicitly. For example, with plain HTML, to prevent the default link behavior of opening a new page, you can write:
+<div dir=rtl>
+یکی دیگر از تفاوت‌ها این  می‌باشد که در ری‌اکت شما نمی‌توانید برای جلوگیری از رفتار پیش فرض مقدار <code>false</code> را قرار دهید. شما باید به صراحت تابع <code>preventDefault</code> را صدا بزنید. برای مثال،  در HTML ساده،  برای جلوگیری از رفتار پیش فرض لینک در باز شدن یک صفحه، به شکل زیر بنویسید:
+</div>
 
 ```html
 <a href="#" onclick="console.log('The link was clicked.'); return false">
   Click me
 </a>
 ```
-
-In React, this could instead be:
+<div dir=rtl>
+در ری‌اکت، به این شکل می‌توان نوشت:
+</div>
 
 ```js{2-5,8}
 function ActionLink() {
@@ -53,12 +65,27 @@ function ActionLink() {
   );
 }
 ```
-
-Here, `e` is a synthetic event. React defines these synthetic events according to the [W3C spec](https://www.w3.org/TR/DOM-Level-3-Events/), so you don't need to worry about cross-browser compatibility. See the [`SyntheticEvent`](/docs/events.html) reference guide to learn more.
-
-When using React you should generally not need to call `addEventListener` to add listeners to a DOM element after it is created. Instead, just provide a listener when the element is initially rendered.
-
-When you define a component using an [ES6 class](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes), a common pattern is for an event handler to be a method on the class. For example, this `Toggle` component renders a button that lets the user toggle between "ON" and "OFF" states:
+<div dir=rtl>
+ در اینجا <code>e</code>  یک رویداد مصنوعی می‌باشد. ری‌اکت این رویداد مصنوعی را با توجه به 
+<a href="https://www.w3.org/TR/DOM-Level-3-Events/">W3C spec</a>
+تعریف می‌کند، بنابر این نیاز نیست شما نگران سازگار بودن در مرورگرهای متفاوت باشید. برای مطالعه بیشتر در مورد رویدادهای مصنوعی به راهنمای مرجع 
+<a href=""><code>SyntheticEvent</code></a>
+مراجعه کنید.
+</div>
+<br />
+<div dir=rtl>
+زمانی که از ری‌اکت استفاده می‌کنید نیازی ندارید برای افزودن یک listener به المان DOM ، حتما بعد از ساخته شدنش تابع
+ <code>addEventListener</code>
+ اضافه کنید. به جای آن در زمان اولیه رندر المان برایش listener آماده کنید. 
+</div>
+<br />
+<div dir=rtl>
+زمانی که  برای تعریف یک کامپوننت از 
+<a href="https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Classes"><code dir=rtl>کلاس ES6</code></a>
+استفاده می‌کنید، یک الگوی متداول برای event handler یک تابع در کلاس می‌باشد. درواقع کامپوننت 
+<code>Toggle</code>
+دکمه‌ای را رندر می کند که اجازه می‌دهد که کاربر بین state های  "ON" و "OFF" تغییر وضعیت دهد:
+</div>
 
 ```js{6,7,10-14,18}
 class Toggle extends React.Component {
@@ -90,8 +117,14 @@ ReactDOM.render(
   document.getElementById('root')
 );
 ```
+<div dir=rtl>
+<b>
+<a href="http://codepen.io/gaearon/pen/xEmzGg?editors=0010">
+روی CodePen امتحان کنید
+</a>
+</b>
+</dir>
 
-[**Try it on CodePen**](http://codepen.io/gaearon/pen/xEmzGg?editors=0010)
 
 You have to be careful about the meaning of `this` in JSX callbacks. In JavaScript, class methods are not [bound](https://developer.mozilla.org/en/docs/Web/JavaScript/Reference/Global_objects/Function/bind) by default. If you forget to bind `this.handleClick` and pass it to `onClick`, `this` will be `undefined` when the function is actually called.
 
